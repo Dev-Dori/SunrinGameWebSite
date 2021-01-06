@@ -1,1 +1,1 @@
-# SunrinGameWebSite [ 정보통신 TemapProject ]
+# SunrinGameWebSite [ 정보통신 TeamProject ]
