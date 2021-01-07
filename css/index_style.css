@@ -9,6 +9,11 @@ body, html {
     cursor: default;
 }
 
+a { 
+    text-decoration:none; 
+    color:#000000
+}
+
 .bgimg {
     border: 0;
     padding: 0; 
@@ -25,6 +30,7 @@ body, html {
 
 .GI{
     margin: 0 70px 0 70px;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 #main_logo{
@@ -37,6 +43,8 @@ body, html {
 }
 
 .GI{
+    overflow: hidden;
+    border: solid;
     position: relative;
     width: 360px;
     height: 440px;
@@ -46,32 +54,34 @@ body, html {
 .GI > img {
     width: 350px;
     height: 430px;
-    border: solid;
+    
 }
 
- .GI:hover {
-    transform: scale(1.5);
-}
 
 
 .up {
-    background-color: cadetblue;
-    opacity: 60%;
+    background-color: rgb(80, 185, 189,0.4);
     position: absolute;
     top: 0%;
     width: 430px;
     height: 530px;
 }
-
-
-
 .up {
     transform: translateY(100%);
-    transition: all .5s ease-out;
+    transition: all 1.5s ease-out;
 }
 
 .up:hover {
     visibility: visible;
-    opacity: 50%;
+    
     transform: translateY(0%);
+}
+.GI{
+    border: solid;
+    transition : all ease 1s;
+}
+
+.GI:hover {
+    transform: scale(1.4);
+
 }
