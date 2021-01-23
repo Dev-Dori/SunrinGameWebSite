@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./css/index_style.css">
+    <meta charset="UTF-8">
+    <title>선린게임</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <style>
+        .bgimg {
+            background-image: url("./img/bg.gif");
+        }
+    </style>
+
+    <script>
+        function over_img(obj){
+            var shadow = obj.children[1];
+            shadow.style.transform="translateY(0%)";    
+        }
+        function down_img(obj){
+            var shadow = obj.children[1];
+            shadow.style.transform="translateY(100%)";    
+        }
+    </script>
+
+</head>
+<body ondragstart="return false" onselectstart="return false" class="bgimg" style="overflow:hidden">
+    <div id="main_logo">
+        <img src="./img/LOGO.png" alt="로고사진">
+    </div>
+
+    <div id="game_menu">
+        <a href="./sketch.html" target="_self">    
+            <div class="GI" onmouseover="over_img(this)" onmouseout="down_img(this)">
+                <img src="./img/G1.jpg">
+                <div class="up" id="up1">
+                    <span>스케치퀴즈</span><hr>
+                </div>
+            </div>
+        </a>
+
+        <a href="./ggut.html">
+            <div class="GI" onmouseover="over_img(this)" onmouseout="down_img(this)">
+                <img src="./img/G2.jpg">
+                <div class="up" id="up2">
+                    <span>끝말잇기</span><hr>
+                </div>
+            </div>
+        </a>  
+    </div>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/BDY7VAxGb24?autoplay=1" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+        allow="autoplay; encrypted-media">
+    </iframe>
+
+    </body>
+</html>

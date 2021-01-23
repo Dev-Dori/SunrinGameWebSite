@@ -1,0 +1,334 @@
+<!DOCTYPE html>.
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>스케치퀴즈</title>
+    <link rel="stylesheet" href="{% static 'css/sketch.css' %}?after">
+
+      <script>
+        function over_img(obj){
+            var shadow = obj.children[1];
+            shadow.style.transform="translateY(0%)";
+        }
+        function down_img(obj){
+            var shadow = obj.children[1];
+            shadow.style.transform="translateY(100%)";
+        }
+    </script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+
+        var playerList = [0,0,0,0];
+
+        function getName(names) {
+            while (true) {
+                const input = prompt("닉네임을 입력하세요.\n(2자 이상 6자 이하)");
+                const uniqueCondition = names.indexOf(input) === -1;
+                const lengthCondition = input && input.length <= 6 && input.length >= 2;
+
+                if (!uniqueCondition) {
+                    alert("중복된 닉네임입니다.")
+                } else if (!lengthCondition) {
+                    alert("조건을 지켜 입력해주세요.");
+                } else {
+                    return input;
+                }
+            }
+        }
+
+        function drawUserEnterAlert(name) {
+            var player = document.getElementById("P1");
+            player.innerHTML = name;
+            const html = `
+                <div class="system">
+                    ${name}님이 들어왔습니다.
+                </div>`;
+            $("#chatView").append(html).scrollTop($("#chatView")[0].scrollHeight);
+        }
+
+        function drawMessage(name, message) {
+            const html = `
+                <div class="chatLine">
+                    <label class="nick">${name}</label>
+                    <div class="chatLog">
+                        ${message}
+                    </div>
+                </div>`;
+            playerList[playerList.indexOf(0)] = -1;
+            $("#chatView").append(html).scrollTop($("#chatView")[0].scrollHeight);
+        }
+
+        function drawMyMessage(message) {
+            const html = `
+                <div class="chatLine">
+                    <div class="chatLog me">
+                        ${message}
+                    </div>
+                </div>`;
+
+            $("#chatView").append(html).scrollTop($("#chatView")[0].scrollHeight);
+            $("#message").val("");
+        }
+
+        function drawUserExitAlert(name) {
+            const html = `
+                <div class="system">
+                    ${name}님이 나갔습니다.
+                </div>`;
+
+            $("#chatView").append(html).scrollTop($("#chatView")[0].scrollHeight);
+        }
+
+        $(document).ready(() => {
+            const ws = new WebSocket("ws://localhost:8000/chat");
+            let name;
+
+            ws.onopen = (e) => {
+                const data = {
+                    type: "names"
+                };
+
+                ws.send(JSON.stringify(data));
+            };
+
+            ws.onmessage = (e) => {
+                const { type, data } = JSON.parse(e.data);
+
+                if (type === "names") {
+                    name = getName(data);
+
+                    ws.send(JSON.stringify({
+                        type: "connect",
+                        data: {
+                            name
+                        }
+                    }));
+                    drawUserEnterAlert(name);
+                } else if (type === "connect") {
+                    drawUserEnterAlert(data.name);
+                } else if (type === "message") {
+                    drawMessage(data.name, data.message);
+                } else if (type === 'disconnect') {
+                    drawUserExitAlert(data.name);
+                }
+            };
+
+            $("#sendForm").submit(() => {
+                const message = $("#message").val();
+
+                if (message.length > 0) {
+                    const data = {
+                        type: "message",
+                        data: {
+                            name,
+                            message
+                        }
+                    };
+
+                    ws.send(JSON.stringify(data));
+                    drawMyMessage(message);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function where(e) {
+
+			//1. id가 div인 div 객체 가지고 오기
+
+			div = document.getElementById("div");
+			var text = "(screenX, screenY)=" + e.screenX + "," + e.screenY + "<br>";
+			text += "(clientX, clientY)=" + e.clientX + "," + e.clientY + "<br>";
+			text += "(offsetX, offsetY)=" + e.offsetX + "," + e.offsetY + "<br>";
+			text += "(x, y)=" + e.x + "," + e.y + "\n";
+			//2. div 객체의 innerHTML을 text내용으로 수정하기
+
+			console.log(text)
+		}
+    </script>
+</head>
+
+<body>
+    <header>
+        <div id="header">
+            <div id="G_logo" >
+                <img src="">
+            </div>
+            <div>
+                <button>버튼1</button>
+                <button>버튼2</button>
+            </div>
+        </div>
+    </header>
+
+    
+    <div class="mainbox">
+        <nav>
+            <div id="chatting">
+            
+                <div id="wrap">
+                    <div id="chatWrap">
+                        <div id="chatView"></div>
+                        <form id="sendForm" onsubmit="return false">
+                            <input type="text" id="message" placeholder="메시지를 입력하세요." autocomplete="off">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+        <article>
+            <div id="sketch_board">
+                <div id="word_info">제시어</div>
+                    <div id="cumo">
+                        <canvas id="canvas" width="800" height="590" onmousemove='where(event)'></canvas>
+                        <div class="options">
+                            <select id="type">
+                                <option value="stroke">실선</option>
+                                <option value="square">사각형</option>
+                                <option value="eraser">지우개</option>
+                            </select>
+                            <select id="strokeStyle">
+                                <option value="blue">파란색</option>
+                                <option value="red">빨간색</option>
+                                <option value="pink">분홍색</option>
+                                <option value="orange">주황색</option>
+                            </select>
+                            <select id="lineWidth">
+                                <option value="30">30px</option>
+                                <option value="40">40px</option>
+                                <option value="50">50px</option>
+                                <option value="60">60px</option>
+                            </select>
+            
+                        </div>
+                </div>
+            </div>
+        </article>
+        <aside>
+            <div class="user_box">
+                <div class="player" id="P1">플레이어1</div>
+                <div class="player" id="P2">플레이어2</div>
+                <div class="player" id="P3">플레이어3</div>
+                <div class="player" id="P4">플레이어4</div>
+            </div>
+        </aside>
+    </div>
+    
+
+
+    <script>
+        let isAbleDraw = false;
+        const options = {
+            type: 'stroke',
+            strokeStyle: 'blue',
+            lineWidth: 5,
+        };
+        const rects = [];
+        let currentRect = null;
+        document.getElementById('canvas').addEventListener('mousedown', () => {
+            isAbleDraw = true;
+            currentRect = {
+                type: options.type,
+                strokeStyle: options.strokeStyle,
+                lineWidth: options.lineWidth,
+                coordinates: [],
+            };
+        });
+        document.getElementById('canvas').addEventListener('mousemove', (e) => {
+            if (isAbleDraw) {
+                const ctx = e.target.getContext('2d');
+                const [x, y] = [e.offsetX, e.offsetY];
+                currentRect.coordinates.push([x, y]);
+                drawTools.clear();
+                drawTools.execute(rects);
+                if (currentRect.type === 'stroke') drawTools.stroke(currentRect.coordinates, 'rgba(255, 255, 0, .3)', currentRect.lineWidth);
+                if (currentRect.type === 'eraser') drawTools.eraser(currentRect.coordinates, currentRect.lineWidth);
+                if (currentRect.type === 'square') drawTools.square(currentRect.coordinates, 'rgba(255, 255, 0, .3)');
+            }
+        });
+        document.getElementById('canvas').addEventListener('mouseup', () => {
+            isAbleDraw = false;
+            rects.push(currentRect);
+            drawTools.clear();
+            currentRect = null;
+            drawTools.execute(rects);
+            console.log(rects);
+        })
+
+        const drawTools = {
+            clear() {
+                // 캔버스 내용 제거
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            },
+            stroke(coordinates, color, lineWidth) {
+                // 마우스가 이동한 경로를 따라 실선 그리기
+                if (coordinates.length > 0) {
+                    const ctx = document.getElementById('canvas').getContext('2d');
+                    const firstCoordinate = coordinates[0];
+                    ctx.beginPath();
+                    ctx.moveTo(firstCoordinate[0], firstCoordinate[1]);
+                    for (let i = 1; i < coordinates.length; i += 1) {
+                        ctx.lineTo(coordinates[i][0], coordinates[i][1]);
+                    }
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = lineWidth;
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            },
+            eraser(coordinates, lineWidth) {
+                // 마우스가 이동한 좌표에 따라 하얀색으로 원을 그려서 지우개 기능처럼 동작
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                for (let i = 0; i < coordinates.length; i += 1) {
+                    ctx.beginPath();
+                    const coordinate = coordinates[i];
+                    const [x, y] = coordinate;
+                    ctx.fillStyle = 'rgb(7, 92, 7)';
+                    ctx.arc(x, y, lineWidth / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            },
+            execute(rects) {
+                // rects 배열에 저장 된 도형을 기준으로 다시 캔버스에 그림
+                for (let i = 0; i < rects.length; i += 1) {
+                    const rect = rects[i];
+                    const { type } = rect;
+                    if (type === 'stroke') this.stroke(rect.coordinates, rect.strokeStyle, rect.lineWidth);
+                    if (type === 'eraser') this.eraser(rect.coordinates, rect.lineWidth);
+                    if (type === 'square') this.square(rect.coordinates, rect.strokeStyle);
+                }
+            },
+            square(coordinates, color) {
+                // 사각 도형을 그림
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                const start = coordinates[0];
+                const end = coordinates[coordinates.length - 1];
+                const [startX, startY] = start;
+                const [endX, endY] = [end[0] - startX, end[1] - startY];
+                ctx.beginPath();
+                ctx.fillStyle = color;
+                ctx.fillRect(startX, startY, endX, endY);
+                ctx.closePath();
+            },
+        };
+        document.getElementById('type').addEventListener('change', (e) => {
+            options.type = e.target.value;
+        });
+        document.getElementById('strokeStyle').addEventListener('change', (e) => {
+            options.strokeStyle = e.target.value;
+        });
+        document.getElementById('lineWidth').addEventListener('change', (e) => {
+            options.lineWidth = e.target.value;
+        });
+    </script>
+    
+</body>
+</html>
