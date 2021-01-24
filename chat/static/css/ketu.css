@@ -1,39 +1,41 @@
+
 body{
     overflow: hidden;
 }
 
 #d1{
-    display: flex;
-    width: 1400px;
-    height: 920px;
-    border: 2px solid black;
+    box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px, rgba(0,0,0,0.5) 2px 2px 3px 3px;
+    width: 1900px;
+    height: 98vh;
+    /* border: 2px solid white; */
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .main_box{
     overflow: hidden;
     width: 1600px;
-    border: 2px solid black;
 }
 
-.P_box{
-    width: 1400px;
-    border: 2px solid black;
+#GS{
+    width: 181px;
+    margin-top: -5px;
 }
 
-#BOT_box img{
-    height: 400px;
-    width: auto;
-}
 
 #word_list{
-    height: 50%;
+    height: 62%;
+}
+
+#info{
+    text-align: center;
+    background-color:rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid white;
 }
 
 .g_info{
-    border-bottom: 2px solid black;
     width: 100%;
-    height: 20%;
+    height: 19%;
 }
 
 #word{
@@ -43,4 +45,49 @@ body{
 
 #input_word input{
     width: 99.1%;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    background: none;
+    height: 97%;
+    font-size: 30px;
+    color: white;
 }
+
+#input_word{
+    height: 30.7%;
+}
+
+.P_box{
+    overflow: hidden;
+    background-color:rgba(0, 0, 0, 0.5);
+    width: 1400px;
+}
+
+
+
+#Player_box img{
+    -webkit-user-drag: none;
+    padding: 139px 0px 0px 0px;
+    width: 100%;
+    height: 75%;
+}
+
+#BOT_box img{
+    -webkit-user-drag: none;
+    height: 800px;
+    width: 600px;
+}
+
+::placeholder {
+    color: WHITE;
+    /*font-family: 'Jua', sans-serif;*/
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 1.5em;
+}
+
+  #game_box{
+      -ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;
+      display: flex;
+  }
+
+  
