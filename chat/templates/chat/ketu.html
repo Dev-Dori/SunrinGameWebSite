@@ -5,8 +5,28 @@
     <meta charset="UTF-8">
     <title>Ketu</title>
     <link rel="stylesheet" href="{% static 'css/ketu.css' %}?after">
+    <script type="text/javascript" src="{% static 'js/ketu.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <h1>비어있음.</h1>
+    <div id="d1">
+        <div id="Player_box" class="P_box"></div>
+        <div id="main_box" class="main_box">
+            <div id="info" class="g_info">
+                <div>게임설명</div>
+                <div>스테이지</div>
+                <div>타이머바</div>
+                <div></div>
+            </div>
+            <div id="word_list" class="g_info"></div>
+            <div id="input_word" class="g_info">
+                <input type="text">
+            </div>
+        </div>
+        <div id="BOT_box" class="P_box">
+            <img src="{% static 'img/ketu/bot.png' %}" onclick="Pword('test')">
+        </div>
+    </div>
 </body>
 </html>

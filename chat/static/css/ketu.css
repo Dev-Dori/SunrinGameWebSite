@@ -1,3 +1,46 @@
-h1{
-    color :  white
+body{
+    overflow: hidden;
+}
+
+#d1{
+    display: flex;
+    width: 1400px;
+    height: 920px;
+    border: 2px solid black;
+    margin: 0 auto;
+}
+
+.main_box{
+    overflow: hidden;
+    width: 1600px;
+    border: 2px solid black;
+}
+
+.P_box{
+    width: 1400px;
+    border: 2px solid black;
+}
+
+#BOT_box img{
+    height: 400px;
+    width: auto;
+}
+
+#word_list{
+    height: 50%;
+}
+
+.g_info{
+    border-bottom: 2px solid black;
+    width: 100%;
+    height: 20%;
+}
+
+#word{
+    width: 300px;
+    height: 40px;
+}
+
+#input_word input{
+    width: 99.1%;
 }

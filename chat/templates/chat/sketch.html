@@ -1,25 +1,210 @@
 <!DOCTYPE html>.
 {% load static %}
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>스케치퀴즈</title>
     <link rel="stylesheet" href="{% static 'css/sketch.css' %}?after">
-
-      <script>
-        function over_img(obj){
-            var shadow = obj.children[1];
-            shadow.style.transform="translateY(0%)";
+    <style>
+        #header {
+            display: flex;
+            justify-content: space-between;
         }
-        function down_img(obj){
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        #G_logo {
+            border: 2px solid black;
+            height: 50px;
+            width: 150px;
+        }
+
+        #header {
+            width: 84%;
+        }
+
+        #chatting {
+            width: 320px;
+            height: 40em;
+        }
+
+        .mainbox {
+            display: flex;
+            height: 640px;
+            width: 1435.390px;
+            border: 2px solid black;
+            text-align: center;
+        }
+
+
+
+        #sketch_board {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 40em;
+            width: 55em;
+            border-right: 2px solid black;
+            position: relative;
+        }
+
+     
+        .options{
+            background-color: rgb(255, 255, 255);
+            height: 46px;
+            
+            margin-top: -3px;
+        }
+        .user_box {
+
+            width: 232px;
+            height: 650px;
+        }
+
+        .player {
+            margin: 5px 0 1px 2px;
+            border: 2px solid black;
+            height: 23%;
+        }
+
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding-left: 11%;
+            background-color: lightblue;
+        }
+
+        nav {
+            overflow: hidden;
+        }
+
+        #wrap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: lightblue;
+        }
+
+        #chatWrap {
+            width: 320px;
+            height: 639px;
+            margin: auto;
+            border: 1px solid gray;
+            background-color: white;
+        }
+
+        #chatView {
+            width: 100%;
+            height: 92%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        .system {
+            width: 100%;
+            text-align: center;
+            font-size: large;
+            color: darkgray;
+        }
+
+        .chatLine {
+            height: auto;
+            padding: 10px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .nick {
+            display: block;
+            margin-left: 1%;
+            font-size: large;
+            font-weight: bold;
+            color: gray;
+        }
+
+        .chatLog {
+            max-width: 60%;
+            height: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            display: inline-block;
+            word-break: break-all;
+            font-size: large;
+            background-color: lightgray;
+        }
+
+        .me {
+            float: right;
+            background-color: lightblue;
+        }
+
+        #sendForm {
+            height: 5%;
+            padding: 5px;
+            border-top: 1px solid gray;
+            text-align: center;
+        }
+
+        #name {
+            width: 20%;
+            height: 50px;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        #message {
+            width: 90%;
+            height: 30px;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        #canvas {
+            position: static;
+            background-color: rgb(7, 92, 7);
+            border-bottom: 2px solid rgb(104, 219, 129);
+        }
+
+        #word_info {
+            -ms-user-select: none;
+            -moz-user-select: -moz-none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            user-select: none;
+
+            border-radius: 15px;
+            margin: 10px 0px 0px 10px;
+
+            background-color: mediumspringgreen;
+
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 150px;
+            height: 25px;
+            border: 1px solid white;
+            padding: 3px 0px 0px 0px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function over_img(obj) {
             var shadow = obj.children[1];
-            shadow.style.transform="translateY(100%)";
+            shadow.style.transform = "translateY(0%)";
+        }
+        function down_img(obj) {
+            var shadow = obj.children[1];
+            shadow.style.transform = "translateY(100%)";
         }
     </script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
 
-        var playerList = [0,0,0,0];
+        var playerList = [0, 0, 0, 0];
 
         function getName(names) {
             while (true) {
@@ -136,24 +321,24 @@
     <script>
         function where(e) {
 
-			//1. id가 div인 div 객체 가지고 오기
+            //1. id가 div인 div 객체 가지고 오기
 
-			div = document.getElementById("div");
-			var text = "(screenX, screenY)=" + e.screenX + "," + e.screenY + "<br>";
-			text += "(clientX, clientY)=" + e.clientX + "," + e.clientY + "<br>";
-			text += "(offsetX, offsetY)=" + e.offsetX + "," + e.offsetY + "<br>";
-			text += "(x, y)=" + e.x + "," + e.y + "\n";
-			//2. div 객체의 innerHTML을 text내용으로 수정하기
+            div = document.getElementById("div");
+            var text = "(screenX, screenY)=" + e.screenX + "," + e.screenY + "<br>";
+            text += "(clientX, clientY)=" + e.clientX + "," + e.clientY + "<br>";
+            text += "(offsetX, offsetY)=" + e.offsetX + "," + e.offsetY + "<br>";
+            text += "(x, y)=" + e.x + "," + e.y + "\n";
+            //2. div 객체의 innerHTML을 text내용으로 수정하기
 
-			console.log(text)
-		}
+            console.log(text)
+        }
     </script>
 </head>
 
 <body>
     <header>
         <div id="header">
-            <div id="G_logo" >
+            <div id="G_logo">
                 <img src="">
             </div>
             <div>
@@ -163,11 +348,11 @@
         </div>
     </header>
 
-    
+
     <div class="mainbox">
         <nav>
             <div id="chatting">
-            
+
                 <div id="wrap">
                     <div id="chatWrap">
                         <div id="chatView"></div>
@@ -182,28 +367,28 @@
         <article>
             <div id="sketch_board">
                 <div id="word_info">제시어</div>
-                    <div id="cumo">
-                        <canvas id="canvas" width="800" height="590" onmousemove='where(event)'></canvas>
-                        <div class="options">
-                            <select id="type">
-                                <option value="stroke">실선</option>
-                                <option value="square">사각형</option>
-                                <option value="eraser">지우개</option>
-                            </select>
-                            <select id="strokeStyle">
-                                <option value="blue">파란색</option>
-                                <option value="red">빨간색</option>
-                                <option value="pink">분홍색</option>
-                                <option value="orange">주황색</option>
-                            </select>
-                            <select id="lineWidth">
-                                <option value="30">30px</option>
-                                <option value="40">40px</option>
-                                <option value="50">50px</option>
-                                <option value="60">60px</option>
-                            </select>
-            
-                        </div>
+                <div id="cumo">
+                    <canvas id="canvas" width= "880px" height= "592px" onmousemove='where(event)'></canvas>
+                    <div class="options">
+                        <select id="type">
+                            <option value="stroke">실선</option>
+                            <option value="square">사각형</option>
+                            <option value="eraser">지우개</option>
+                        </select>
+                        <select id="strokeStyle">
+                            <option value="blue">파란색</option>
+                            <option value="red">빨간색</option>
+                            <option value="pink">분홍색</option>
+                            <option value="orange">주황색</option>
+                        </select>
+                        <select id="lineWidth">
+                            <option value="30">30px</option>
+                            <option value="40">40px</option>
+                            <option value="50">50px</option>
+                            <option value="60">60px</option>
+                        </select>
+                        <button onclick="alldel(this)">모두지우기</button>
+                    </div>
                 </div>
             </div>
         </article>
@@ -216,7 +401,7 @@
             </div>
         </aside>
     </div>
-    
+
 
 
     <script>
@@ -224,7 +409,7 @@
         const options = {
             type: 'stroke',
             strokeStyle: 'blue',
-            lineWidth: 5,
+            lineWidth: 30,
         };
         const rects = [];
         let currentRect = null;
@@ -244,9 +429,9 @@
                 currentRect.coordinates.push([x, y]);
                 drawTools.clear();
                 drawTools.execute(rects);
-                if (currentRect.type === 'stroke') drawTools.stroke(currentRect.coordinates, 'rgba(255, 255, 0, .3)', currentRect.lineWidth);
+                if (currentRect.type === 'stroke') drawTools.stroke(currentRect.coordinates, 'color', currentRect.lineWidth);
                 if (currentRect.type === 'eraser') drawTools.eraser(currentRect.coordinates, currentRect.lineWidth);
-                if (currentRect.type === 'square') drawTools.square(currentRect.coordinates, 'rgba(255, 255, 0, .3)');
+                if (currentRect.type === 'square') drawTools.square(currentRect.coordinates, 'color');
             }
         });
         document.getElementById('canvas').addEventListener('mouseup', () => {
@@ -257,8 +442,14 @@
             drawTools.execute(rects);
             console.log(rects);
         })
-
+        
+        function alldel(){
+            var cnvs = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+        }
         const drawTools = {
+            
             clear() {
                 // 캔버스 내용 제거
                 const canvas = document.getElementById('canvas');
@@ -302,21 +493,7 @@
                     const { type } = rect;
                     if (type === 'stroke') this.stroke(rect.coordinates, rect.strokeStyle, rect.lineWidth);
                     if (type === 'eraser') this.eraser(rect.coordinates, rect.lineWidth);
-                    if (type === 'square') this.square(rect.coordinates, rect.strokeStyle);
                 }
-            },
-            square(coordinates, color) {
-                // 사각 도형을 그림
-                const canvas = document.getElementById('canvas');
-                const ctx = canvas.getContext('2d');
-                const start = coordinates[0];
-                const end = coordinates[coordinates.length - 1];
-                const [startX, startY] = start;
-                const [endX, endY] = [end[0] - startX, end[1] - startY];
-                ctx.beginPath();
-                ctx.fillStyle = color;
-                ctx.fillRect(startX, startY, endX, endY);
-                ctx.closePath();
             },
         };
         document.getElementById('type').addEventListener('change', (e) => {
@@ -329,6 +506,7 @@
             options.lineWidth = e.target.value;
         });
     </script>
-    
+
 </body>
+
 </html>
