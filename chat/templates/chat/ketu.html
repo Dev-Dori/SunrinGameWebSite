@@ -1,6 +1,7 @@
 <!doctype html>
 {% load static %}
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Ketu</title>
@@ -10,84 +11,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <script>
         var using = 1;
-        function userTime(){ //  유저 타이머
+        function userTime() { //  유저 타이머
             var a = document.getElementById("userTime_bar");
-            a.style.width=0+"%";
+            a.style.width = 0 + "%";
             using = 0;
-            for(i=1; i<=10000; i++){
-                (function(x){
-                    setTimeout(function(){
-                    a.style.width=x/100+"%";
-                    if(x==10000){ 
-                        using = 1;
-                    }
-                }, x);
-            })(i);
+            for (i = 1; i <= 10000; i++) {
+                (function (x) {
+                    setTimeout(function () {
+                        a.style.width = x / 100 + "%";
+                        if (x == 10000) {
+                            using = 1;
+                        }
+                    }, x);
+                })(i);
             }
         }
 
-        function gameTime(){ //
+        function gameTime() { //
             var a = document.getElementById("timer_bar");
-            a.style.width=0+"%";
+            a.style.width = 0 + "%";
             using = 0;
-            for(i=1; i<=10000; i++){
-                (function(x){
-                    setTimeout(function(){
-                    a.style.width=x/100+"%";
-                    if(x==10000){ 
-                        alert("timeover")
-                        using = 1;
-                    }
-                }, x);
-            })(i);
+            for (i = 1; i <= 10000; i++) {
+                (function (x) {
+                    setTimeout(function () {
+                        a.style.width = x / 100 + "%";
+                        if (x == 10000) {
+                            alert("timeover")
+                            using = 1;
+                        }
+                    }, x);
+                })(i);
             }
         }
 
-        async function start(){
+        async function start() {
             await userTime();
             await gameTime()
         }
-        
+
     </script>
 
-    <script>
-        // using jQuery
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie != '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        $(document).ready(function() {
-            var csrftoken = getCookie('csrftoken');
-            $.ajaxSetup({
-                beforeSend: function(xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                }
-            });
-        });
-    </script>
+
+
+
 </head>
+
 <body>
 
     <div id="d1">
@@ -111,26 +85,14 @@
                 </div>
 
             </div>
-            
+
             <div id="BOT_box" class="P_box">
                 <img src="{% static 'img/ketu/right.png' %}" onclick="Pword('test')">
             </div>
         </div>
     </div>
 
-    <script>
-        function msg() {
-            $.ajax({
-                url:"searchData/",
-                dataType:'json',
-                type:'POST',
-                data:{'msg':$('#msg').val()},
-                success:function(result){
-                    alert(result['msg'])
-                }
-            });
-        }
-    </script>
 
 </body>
+
 </html>
