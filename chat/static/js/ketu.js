@@ -50,15 +50,38 @@ function msg() {
         type: 'POST',
         data: { 'msg': $('#msg').val() },
         success: function (result) {
-            document.getElementById("msg").value ="";
-
-            var word_list = document.getElementById("word_list");
-            var tmp = document.createElement("div");
-            tmp.setAttribute("class", "word");
-            tmp.innerHTML = result['msg'];
-            word_list.appendChild(tmp);
+            user_word();
+            bot_word(result['msg']);
         }
     });
 }
 
 // ################################################################# ajax django 처리 부분 끝######################################################
+
+
+// ################################################################# 봇, 유저 단어 추가 부분 #######################################################
+
+function bot_word(msg){
+    document.getElementById("msg").value ="";
+    var word_list = document.getElementById("word_list");
+    var tmp = document.createElement("div");
+    tmp.setAttribute("class", "word");
+    tmp.style.textAlign="right";
+    tmp.style.color="white";
+    tmp.innerHTML = msg;
+    word_list.appendChild(tmp);
+}
+
+function user_word(){
+    var user_msg = document.getElementById("msg").value
+    var word_list = document.getElementById("word_list");
+    var tmp = document.createElement("div");
+    tmp.setAttribute("class", "word");
+    tmp.style.textAlign="left";
+    tmp.style.color="white";
+    tmp.innerHTML = user_msg;
+    word_list.appendChild(tmp);
+}
+
+
+// ################################################################# 봇, 유저 단어 추가 부분 끝 #########################################################
