@@ -1,3 +1,10 @@
+
+body{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 1024px;
+    width: 2048px;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6) ),url('{% static "img/sketch/bg.jpg" %}');
+}
 #header{
     display: flex;
     justify-content: space-between;
@@ -11,7 +18,8 @@
     width: 150px;
 }
 
-#header{
+#header {
+    margin: 0, auto;
     width: 84%;
 }
 
@@ -21,45 +29,57 @@
 }
 
 .mainbox{
+    margin: 0 auto;
     display: flex;
     height: 640px;
     width: 1435.390px;
     border: 2px solid black;
-    text-align: center;
+    align-items: center;
 }
 
 
 
-#sketch_board{
+#sketch_board {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 40em;
     width: 55em;
-    border-right: 2px solid black;
+    border: 2px solid black;
     position: relative;
+}
+
+.options{
+    background-color: rgb(255, 255, 255);
+    height: 46px;
+    
+    margin-top: -6px;
 }
 
 #sketch_control{
     border: 2px solid black;
 }
 
-.user_box{
 
+.user_box {
     width: 232px;
-    height: 40em;
+    height: 650px;
 }
 
+
 .player{
-    border-bottom: 2px solid black;
-    height : 158.5px
+    margin: 17px 0 -3px 4px;
+    border: 2px solid black;
+    height: 22%;
+    width: 95%;
+}
+
+.pimg{
+    width: 230px;
+    height: 150px;
 }
 
 
 body {
-    height: 100%;
-    margin: 0;
-    padding-left: 11%;
     background-color: lightblue;
 }
 nav{
@@ -73,10 +93,9 @@ nav{
 }
 
 #chatWrap {
-    width: 320px;
     height: 639px;
     margin: auto;
-    border: 1px solid gray;
+    border: 2px solid rgb(0, 0, 0);
     background-color: white;
 }
 
@@ -126,9 +145,10 @@ nav{
 }
 
 #sendForm {
-    height: 5%;
-    padding: 5px;
-    border-top: 1px solid gray;
+    height: 6%;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    border-top : 2px solid black;
     text-align: center;
 }
 
@@ -145,20 +165,19 @@ nav{
     font-size: 20px;
     border-radius: 8px;
 }
-#canvas{
+
+#canvas {
     position: static;
     background-color: rgb(7, 92, 7);
-    width: 880px;
-    height : 592px;
-    border-bottom : 2px solid rgb(104, 219, 129);
+    border-bottom: 2px solid rgb(104, 219, 129);
 }
 
-#word_info{
-    -ms-user-select: none; 
-    -moz-user-select: -moz-none; 
-    -webkit-user-select: none; 
-    -khtml-user-select: none; 
-    user-select:none;
+#word_info {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 
     border-radius: 15px;
     margin: 10px 0px 0px 10px;
@@ -169,7 +188,29 @@ nav{
     top: 10px;
     left: 10px;
     width: 150px;
-    border : 1px solid white;
+    height: 25px;
+    border: 1px solid white;
+    padding: 3px 0px 0px 0px;
     text-align: center;
 }
 
+
+
+#foot{
+    margin-top: 100px;
+    background-color: blue;
+    height: 60px;
+    text-align: center;
+}
+.options{
+    display: flex;
+}
+.color{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+.tool{
+    width: 40px;
+    height: 40px;
+}

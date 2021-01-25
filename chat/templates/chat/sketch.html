@@ -1,4 +1,4 @@
-<!DOCTYPE html>.
+<!DOCTYPE html>
 {% load static %}
 <html>
 
@@ -6,191 +6,7 @@
     <meta charset="UTF-8">
     <title>스케치퀴즈</title>
     <link rel="stylesheet" href="{% static 'css/sketch.css' %}?after">
-    <style>
-        #header {
-            display: flex;
-            justify-content: space-between;
-        }
 
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        #G_logo {
-            border: 2px solid black;
-            height: 50px;
-            width: 150px;
-        }
-
-        #header {
-            width: 84%;
-        }
-
-        #chatting {
-            width: 320px;
-            height: 40em;
-        }
-
-        .mainbox {
-            display: flex;
-            height: 640px;
-            width: 1435.390px;
-            border: 2px solid black;
-            text-align: center;
-        }
-
-
-
-        #sketch_board {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 40em;
-            width: 55em;
-            border-right: 2px solid black;
-            position: relative;
-        }
-
-     
-        .options{
-            background-color: rgb(255, 255, 255);
-            height: 46px;
-            
-            margin-top: -3px;
-        }
-        .user_box {
-
-            width: 232px;
-            height: 650px;
-        }
-
-        .player {
-            margin: 5px 0 1px 2px;
-            border: 2px solid black;
-            height: 23%;
-        }
-
-
-        body {
-            height: 100%;
-            margin: 0;
-            padding-left: 11%;
-            background-color: lightblue;
-        }
-
-        nav {
-            overflow: hidden;
-        }
-
-        #wrap {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: lightblue;
-        }
-
-        #chatWrap {
-            width: 320px;
-            height: 639px;
-            margin: auto;
-            border: 1px solid gray;
-            background-color: white;
-        }
-
-        #chatView {
-            width: 100%;
-            height: 92%;
-            overflow-x: hidden;
-            overflow-y: scroll;
-        }
-
-        .system {
-            width: 100%;
-            text-align: center;
-            font-size: large;
-            color: darkgray;
-        }
-
-        .chatLine {
-            height: auto;
-            padding: 10px;
-            overflow: hidden;
-            text-align: left;
-        }
-
-        .nick {
-            display: block;
-            margin-left: 1%;
-            font-size: large;
-            font-weight: bold;
-            color: gray;
-        }
-
-        .chatLog {
-            max-width: 60%;
-            height: 100%;
-            padding: 10px;
-            border-radius: 20px;
-            display: inline-block;
-            word-break: break-all;
-            font-size: large;
-            background-color: lightgray;
-        }
-
-        .me {
-            float: right;
-            background-color: lightblue;
-        }
-
-        #sendForm {
-            height: 5%;
-            padding: 5px;
-            border-top: 1px solid gray;
-            text-align: center;
-        }
-
-        #name {
-            width: 20%;
-            height: 50px;
-            font-size: 20px;
-            border-radius: 8px;
-        }
-
-        #message {
-            width: 90%;
-            height: 30px;
-            font-size: 20px;
-            border-radius: 8px;
-        }
-
-        #canvas {
-            position: static;
-            background-color: rgb(7, 92, 7);
-            border-bottom: 2px solid rgb(104, 219, 129);
-        }
-
-        #word_info {
-            -ms-user-select: none;
-            -moz-user-select: -moz-none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            user-select: none;
-
-            border-radius: 15px;
-            margin: 10px 0px 0px 10px;
-
-            background-color: mediumspringgreen;
-
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 150px;
-            height: 25px;
-            border: 1px solid white;
-            padding: 3px 0px 0px 0px;
-            text-align: center;
-        }
-    </style>
     <script>
         function over_img(obj) {
             var shadow = obj.children[1];
@@ -342,8 +158,8 @@
                 <img src="">
             </div>
             <div>
-                <button>버튼1</button>
-                <button>버튼2</button>
+                <button>홈</button>
+                <button>나가기</button>
             </div>
         </div>
     </header>
@@ -351,36 +167,31 @@
 
     <div class="mainbox">
         <nav>
-            <div id="chatting">
-
-                <div id="wrap">
-                    <div id="chatWrap">
-                        <div id="chatView"></div>
-                        <form id="sendForm" onsubmit="return false">
-                            <input type="text" id="message" placeholder="메시지를 입력하세요." autocomplete="off">
-                        </form>
-                    </div>
-                </div>
-
+            <div class="user_box">
+                <div class="player" id="P1"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
+                <div class="player" id="P2"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
+                <div class="player" id="P3"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
+                <div class="player" id="P4"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
             </div>
+            
         </nav>
+        
         <article>
             <div id="sketch_board">
                 <div id="word_info">제시어</div>
                 <div id="cumo">
                     <canvas id="canvas" width= "880px" height= "592px" onmousemove='where(event)'></canvas>
                     <div class="options">
-                        <select id="type">
-                            <option value="stroke">실선</option>
-                            <option value="square">사각형</option>
-                            <option value="eraser">지우개</option>
-                        </select>
-                        <select id="strokeStyle">
-                            <option value="blue">파란색</option>
-                            <option value="red">빨간색</option>
-                            <option value="pink">분홍색</option>
-                            <option value="orange">주황색</option>
-                        </select>
+                        <div id="type">
+                            <button value="stroke">실선</button>
+                            <button value="eraser">지우개</button>
+                        </div>
+                        <div id="strokeStyle">
+                            <button value="blue" style="background-color: blue;" class="color"></button>
+                            <button value="red" style="background-color: red;" class="color"></button>
+                            <button value="pink" style="background-color: pink;" class="color"></button>
+                            <button value="orange" style="background-color: orange;" class="color"></button>
+                        </div>
                         <select id="lineWidth">
                             <option value="30">30px</option>
                             <option value="40">40px</option>
@@ -393,14 +204,24 @@
             </div>
         </article>
         <aside>
-            <div class="user_box">
-                <div class="player" id="P1">플레이어1</div>
-                <div class="player" id="P2">플레이어2</div>
-                <div class="player" id="P3">플레이어3</div>
-                <div class="player" id="P4">플레이어4</div>
+            <div id="chatting">
+
+                <div id="wrap">
+                    <div id="chatWrap">
+                        <div id="chatView"></div>
+                        <form id="sendForm" onsubmit="return false">
+                            <input type="text" id="message" placeholder="메시지를 입력하세요." autocomplete="off">
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </aside>
     </div>
+
+    <footer>
+        <div id="foot">선린인터넷고등학교@gmail.com</div>
+    </footer>
 
 
 
@@ -442,8 +263,8 @@
             drawTools.execute(rects);
             console.log(rects);
         })
-        
         function alldel(){
+
             var cnvs = document.getElementById('canvas');
             var ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, cnvs.width, cnvs.height);
@@ -496,10 +317,10 @@
                 }
             },
         };
-        document.getElementById('type').addEventListener('change', (e) => {
+        document.getElementById('type').addEventListener('click', (e) => {
             options.type = e.target.value;
         });
-        document.getElementById('strokeStyle').addEventListener('change', (e) => {
+        document.getElementById('strokeStyle').addEventListener('click', (e) => {
             options.strokeStyle = e.target.value;
         });
         document.getElementById('lineWidth').addEventListener('change', (e) => {
