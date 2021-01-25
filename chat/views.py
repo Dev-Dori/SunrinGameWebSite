@@ -24,6 +24,9 @@ def ketu(request):
     global korean
     global reader
     global result
+    global usingword
+    global lastword
+
     
     BASE = os.path.dirname(os.path.abspath(__file__))
     korean = open(os.path.join(BASE,"korean.csv"), 'r',  encoding="utf-8")
@@ -34,10 +37,19 @@ def ketu(request):
         result.append(line)
 
     ############## csv 단어리스트 불러오기  끝##############
+        
+    #/* 게임 초반 세팅
+    a = get_words("기")
+    lastword = a[random.randrange(0,len(a))][-1]
+    usingword = []
+    usingword.append(lastword)
+    #/*
+
+
     korean.close()
 
     if request.method == "GET":
-        return render(request, 'chat/ketu.html', {})
+        return render(request, 'chat/ketu.html', {'first_word': lastword})
 
 def ajaxproject(request):
     template = loader.get_template('chat/test6.html')
@@ -48,14 +60,28 @@ def searchData(request):
 
     data = request.POST.get('msg')
     context = {'msg': data,}
+
+    global lastword
     
     print(data[-1])
-    if wordCheck(data):
-        res = get_words(data[-1])
-        res = res[random.randrange(0,len(res))]
-        context = {'msg': res,}
+    if wordCheck(data): #중복체크 사용된 단어 #단어 존재 여부 #끝말과 이어지는지
+        if lastword[-1] == data[0]:
+            if data not in usingword:
+                usingword.append(data)
+                res = get_words(data[-1])
+                res = res[random.randrange(0,len(res))]
+                if res not in usingword:
+                    usingword.append(res)
+                    lastword = res[-1]
+                    context = {'msg': res,}
+                else :
+                    context = {'msg': "당신의 승리입니다.",}
+            else:
+                context = {'msg': "첫 단어가 틀립니다.",}
+        else:
+            context = {'msg': "첫 단어가 틀립니다.",}
     else :
-        context = {'msg': "그런 단어는 없다 애송이",}
+        context = {'msg': "단어가 존재하지 않습니다.",}
     
     return HttpResponse(json.dumps(context), "application/json")
 
@@ -77,8 +103,7 @@ def get_words(start):
     return text_list
 
 def wordCheck(word):
-    wordCheck = 0
-    for re1  in result:
-        if word in re1:
+    for rel in result:
+        if word in rel:
             return True
     return False

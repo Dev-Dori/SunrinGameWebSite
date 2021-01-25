@@ -50,7 +50,13 @@ function msg() {
         type: 'POST',
         data: { 'msg': $('#msg').val() },
         success: function (result) {
-            alert(result['msg'])
+            document.getElementById("msg").value ="";
+
+            var word_list = document.getElementById("word_list");
+            var tmp = document.createElement("div");
+            tmp.setAttribute("class", "word");
+            tmp.innerHTML = result['msg'];
+            word_list.appendChild(tmp);
         }
     });
 }
