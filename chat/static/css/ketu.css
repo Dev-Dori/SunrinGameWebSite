@@ -21,10 +21,14 @@ body{
 
 #GS{
     filter: brightness(104%);
-    width: 181px;
+    width: 325px;
     margin-top: -5px;
 }
 
+#GS:hover{
+    transition: 1s;
+    width: 365px;
+}
 
 #word_list{
     margin-top: 10px;

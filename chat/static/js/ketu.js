@@ -70,7 +70,6 @@ function bot_word(msg,color){
     tmp.innerHTML = msg;
     word_list.prepend(tmp);
 
-   
 }
 
 function user_word(){
