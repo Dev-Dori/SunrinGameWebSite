@@ -19,6 +19,10 @@ body{
     width: 1600px;
 }
 
+#mainLOGO{
+    
+}
+
 #GS{
     filter: brightness(104%);
     width: 325px;
@@ -116,6 +120,7 @@ body{
 
 #first_word{
     text-align: center;
+    font-size: 25px;
 }
 
   /*##############################################################*/
