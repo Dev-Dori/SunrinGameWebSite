@@ -65,18 +65,23 @@ function bot_word(msg,color){
     document.getElementById("msg").value ="";
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
+    var size = msg.length*15+70+"px " +"92px";
     tmp.setAttribute("class", "word b_word");
-    tmp.style.backgroundColor=color;
+    //tmp.style.backgroundColor=color;
+    tmp.style.backgroundSize = size;
     tmp.innerHTML = msg;
     word_list.prepend(tmp);
 
 }
 
 function user_word(){
-    var user_msg = document.getElementById("msg").value
+    var user_msg = document.getElementById("msg").value;
     var word_list = document.getElementById("word_list");
+    var size = user_msg.length*13+74+"px " +"92px";
     var tmp = document.createElement("div");
     tmp.setAttribute("class", "word u_word");
+    tmp.style.backgroundSize = size;
+    
     tmp.innerHTML = user_msg;
     word_list.prepend(tmp);
 }
@@ -103,3 +108,24 @@ function last_word(msg){
 
 
 // ################################################################# 봇, 유저 단어 추가 부분 끝 #########################################################
+
+
+// ################## 팝업창 ################# \\
+
+function imagePopup(type) {
+
+    if(type == 'open') {
+       
+        // 팝업창을 연다.
+        jQuery('#layer').attr('style','display:inline');
+
+        // 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+        jQuery('#layer').height(jQuery(document).height());
+    }
+   
+    else if(type == 'close') {
+       
+        // 팝업창을 닫는다.
+        jQuery('#layer').attr('style','display:none');
+    }
+}
