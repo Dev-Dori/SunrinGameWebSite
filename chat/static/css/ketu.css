@@ -93,6 +93,19 @@ body{
       display: flex;
   }
 
+
+#gameinfo{
+    display: block;
+    width: 100%;
+    height: 7%;
+    opacity: 0.8;
+    background-color: white;
+}
+
+#first_word{
+    text-align: center;
+}
+
   /*##############################################################*/
  /*####                        타이머 부분                     ###*/
 /*##############################################################*/
@@ -100,14 +113,14 @@ body{
   #timer{
     display: block;
     width: 100%;
-    height: 4%;
+    height: 63%;
     opacity: 0.8;
     background-color: white;
 }
 
   #timer_bar{
     width: 10%;
-    height: 68%;
+    height: 60%;
     background-color: orange;
   }
 

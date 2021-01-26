@@ -47,7 +47,7 @@ def ketu(request):
         return render(request, 'chat/ketu.html', {'first_word': lastword})
 
 
-        
+
 
 def ajaxproject(request):
     template = loader.get_template('chat/test6.html')
@@ -75,7 +75,7 @@ def searchData(request):
                 else :
                     context = {'msg': "당신의 승리입니다.",}
             else:
-                context = {'msg': "첫 단어가 틀립니다.",}
+                context = {'msg': "이미 사용된 단어입니다.",}
         else:
             context = {'msg': "첫 단어가 틀립니다.",}
     else :
