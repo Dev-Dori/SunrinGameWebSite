@@ -65,9 +65,7 @@ function bot_word(msg){
     document.getElementById("msg").value ="";
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
-    tmp.setAttribute("class", "word");
-    tmp.style.textAlign="right";
-    tmp.style.color="white";
+    tmp.setAttribute("class", "b_word");
     tmp.innerHTML = msg;
     word_list.appendChild(tmp);
 }
@@ -76,9 +74,7 @@ function user_word(){
     var user_msg = document.getElementById("msg").value
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
-    tmp.setAttribute("class", "word");
-    tmp.style.textAlign="left";
-    tmp.style.color="white";
+    tmp.setAttribute("class", "u_word");
     tmp.innerHTML = user_msg;
     word_list.appendChild(tmp);
 }

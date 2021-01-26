@@ -19,7 +19,7 @@ def sketch(request):
 
 def ketu(request):
 
-    ############## csv 단어리스트 불러오기 ##############
+    ############## 한글 단어리스트 불러오기 그리고 설정 ###################
     global BASE
     global korean
     global reader
@@ -29,27 +29,25 @@ def ketu(request):
 
     
     BASE = os.path.dirname(os.path.abspath(__file__))
-    korean = open(os.path.join(BASE,"korean.csv"), 'r',  encoding="utf-8")
-    reader = csv.reader(korean)
+    result = open(os.path.join(BASE,'ketu.txt'), 'r').read().split('\n')
 
-    result = []
-    for line in reader:
-        result.append(line)
 
-    ############## csv 단어리스트 불러오기  끝##############
-        
-    #/* 게임 초반 세팅
+    ###########/* 게임 초반 세팅 *\#########################  ( 첫 단어 선정 )
     a = get_words("기")
     lastword = a[random.randrange(0,len(a))][-1]
     usingword = []
     usingword.append(lastword)
-    #/*
+    ###########/* 게임 초반 세팅 *\######################### 
 
 
-    korean.close()
 
+    ############## 한글단어 단어리스트 불러오기  끝##############
+        
     if request.method == "GET":
         return render(request, 'chat/ketu.html', {'first_word': lastword})
+
+
+        
 
 def ajaxproject(request):
     template = loader.get_template('chat/test6.html')
@@ -92,10 +90,10 @@ def main(request):
 def get_words(start):
     text_list = []
     for i in result:
-        if i[0].startswith(start) and not i[0].endswith('다'):
-            if "-" in i[0] or "^" in i[0] or " " in i[0]:
+        if i.startswith(start) and not i.endswith('다'):
+            if "-" in i or "^" in i or " " in i:
                 continue
-            text = i[0]
+            text = i
             if len(text) >= 2:
                 text_list.append(text.replace("",""))
     text_list = list(set(text_list))
