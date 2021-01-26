@@ -65,7 +65,10 @@
         .u_word{
             color: white;
             text-align: left;
-            background-color: black;
+            background-image: url("{% static 'img/ketu/pngegg.png' %}");
+            background-size: 200px 50px;
+            background-repeat: no-repeat;
+            height: 100px;
         }
 
         .b_word {
@@ -73,6 +76,11 @@
             color: white;
             background-color: grey;
         }
+
+        .word{
+            margin-bottom: 10px;
+        }
+
     </style>
 
 
@@ -86,33 +94,53 @@
         </div>
 
         <div id="game_box">
+            <!-- 플레이어 박스 -->
             <div id="Player_box" class="P_box">
                 <img src="{% static 'img/ketu/left.png' %}" onclick="Pword('test')">
             </div>
+            <!-- 플레이어 박스 끝-->
 
             <div id="main_box" class="main_box">
 
+                <!--게임정보가 담겨있는 DIV-->
                 <div id="gameinfo">
+
+                    <!--첫 단어가 생성되는 곳-->
                     <div id="first_word">
-                        <div>{{first_word}}</div>
+                        <div id="f_msg">{{first_word}}</div>
                     </div>
+
+                    <!--타이머 부분-->
                     <div id="timer">
                         <div id="timer_bar" class="timer_bar"></div>
                         <div id="userTime_bar" class="timer_bar"></div>
                     </div>
+
                 </div>
+                <!--게임정보가 담겨있는 DIV 끝-->
 
+
+
+                <!--입력하고 받은 단어가 추가되는 공간-->
                 <div id="word_list" class="g_info"> </div>
+                <!--입력하고 받은 단어가 추가되는 공간 끝-->
 
+
+                <!--단어입력-->
                 <div id="input_word" class="g_info">
                     <input type="text" id="msg" placeholder="여기에 입력하세요." onKeyPress="if( event.keyCode==13 ){msg();}">
                 </div>
+                <!--단어입력 끝-->
 
             </div>
 
+
+            <!-- 봇 박스 -->
             <div id="BOT_box" class="P_box">
                 <img src="{% static 'img/ketu/right.png' %}" onclick="Pword('test')">
             </div>
+            <!-- 봇 박스 끝-->
+
         </div>
     </div>
 

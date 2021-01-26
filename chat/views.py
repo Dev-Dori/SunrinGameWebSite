@@ -73,13 +73,13 @@ def searchData(request):
                     lastword = res[-1]
                     context = {'msg': res,}
                 else :
-                    context = {'msg': "당신의 승리입니다.",}
+                    context = {'msg': "당신의 승리입니다1",}
             else:
-                context = {'msg': "이미 사용된 단어입니다.",}
+                context = {'msg': "훗 그 단어는 이미 사용했다!2",}
         else:
-            context = {'msg': "첫 단어가 틀립니다.",}
+            context = {'msg': "첫 단어가 틀립니다3",}
     else :
-        context = {'msg': "단어가 존재하지 않습니다.",}
+        context = {'msg': "그딴 단어는 세상에 없다구! 다시!4",}
     
     return HttpResponse(json.dumps(context), "application/json")
 

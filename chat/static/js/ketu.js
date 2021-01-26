@@ -51,7 +51,7 @@ function msg() {
         data: { 'msg': $('#msg').val() },
         success: function (result) {
             user_word();
-            bot_word(result['msg']);
+            last_word(result['msg']);
         }
     });
 }
@@ -61,22 +61,45 @@ function msg() {
 
 // ################################################################# 봇, 유저 단어 추가 부분 #######################################################
 
-function bot_word(msg){
+function bot_word(msg,color){
     document.getElementById("msg").value ="";
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
-    tmp.setAttribute("class", "b_word");
+    tmp.setAttribute("class", "word b_word");
+    tmp.style.backgroundColor=color;
     tmp.innerHTML = msg;
-    word_list.appendChild(tmp);
+    word_list.prepend(tmp);
+
+   
 }
 
 function user_word(){
     var user_msg = document.getElementById("msg").value
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
-    tmp.setAttribute("class", "u_word");
+    tmp.setAttribute("class", "word u_word");
     tmp.innerHTML = user_msg;
-    word_list.appendChild(tmp);
+    word_list.prepend(tmp);
+}
+
+function last_word(msg){
+    if(msg.slice(-1)[0] == "1"){ //당신의 승리
+        msg = msg.replace("1",""); 
+        bot_word(msg,"blue");
+        document.getElementById("f_msg").innerText = msg.slice(-1)[0];
+    }else if(msg.slice(-1)[0] == "2"){  //이미 사용한 단어
+        msg = msg.replace("2","");
+        bot_word(msg,"red");
+    }else if(msg.slice(-1)[0] == "3"){ //첫 단어 이상
+        msg = msg.replace("3","");
+        bot_word(msg,"green");
+    }else if(msg.slice(-1)[0] == "4"){  // 단어가 없을때
+        msg = msg.replace("4","");
+        bot_word(msg,"orange");
+    }else{  //평상시
+        bot_word(msg,"grey");
+        document.getElementById("f_msg").innerText = msg.slice(-1)[0];
+    }
 }
 
 

@@ -27,7 +27,9 @@ body{
 
 
 #word_list{
-    height: 62%;
+    margin-top: 10px;
+    height: 450px;
+    overflow: hidden;
 }
 
 #info{
