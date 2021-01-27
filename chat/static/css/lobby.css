@@ -1,7 +1,26 @@
-body{
-    background-image: url("../img/bg.gif");
-    background-size: 100%;
-} 
+@font-face {
+    src: url('/static/font/munro.ttf');
+    font-family: "main-font";
+}
+
+#fadein {
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    overflow: hidden;
+}
+
 body, html { 
     margin: 0;
     padding: 0;
@@ -87,3 +106,6 @@ a {
 
 }
 
+#start {
+    font-family: 'main-font';
+}

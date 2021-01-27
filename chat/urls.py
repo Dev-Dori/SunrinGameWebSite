@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'ketu/$', views.ketu, name='ketu'),
     url(r'^ajaxproject/$', views.ajaxproject, name='ajaxproject'),
     url(r'^ketu/searchData/$', views.searchData, name="searchData"),
+    path('game', views.game, name='game'),
     path('', views.main, name='main'),
 ]

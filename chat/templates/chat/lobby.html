@@ -9,11 +9,17 @@
 
     <style>
         .bgimg {
-            background-image: url('static/img/bg.gif');
+            background-image: url('/static/img/bg.gif');
         }
     </style>
 
     <script>
+        var arr = ["▶ Press To Start ◀", "▶ ㅤPress To Startㅤ ◀"];
+        var cnt=0;
+        window.onload=function(){
+            text();
+        }
+
         function over_img(obj){
             var shadow = obj.children[1];
             shadow.style.transform="translateY(0%)";
@@ -22,17 +28,29 @@
             var shadow = obj.children[1];
             shadow.style.transform="translateY(100%)";
         }
+        function text(){
+            if(cnt==2) cnt=0;
+            document.getElementById("start").innerHTML = arr[cnt++];
+            setTimeout("text()",500);
+        }
     </script>
 
+    <style>
+        .bgimg {
+            background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('/static/img/bg.gif');
+        }
+    </style>
+
 </head>
-<body>  <!-- ondragstart="return false" onselectstart="return false" class="bgimg" style="overflow:hidden; width: 75%;"-->
+<body onload="text()" class="bgimg" id="fadein" oncontextmenu='return false' ondragstart='return false' onselectstart='return false'>  <!-- ondragstart="return false" onselectstart="return false" class="bgimg" style="overflow:hidden; width: 75%;"-->
     <div id="main_logo">
         <img src="static/img/LOGO.png" alt="로고사진">
     </div>
 
 
-
-    <div style="padding-top: 100px;text-align: center; font-size: 70px; color:white">Press to start</div>
+    <a href="{% url 'game' %}">
+        <div id="start" style="padding-top: 100px;text-align: center; font-size: 70px; color:white; cursor: pointer;">▶ Press to start ◀</div>
+    </a>
 
     <!-- <div id="game_menu">
         <a href="{% url 'sketch' %}" target="_self">

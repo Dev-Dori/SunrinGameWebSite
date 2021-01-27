@@ -108,3 +108,6 @@ def wordCheck(word):
         if word in rel:
             return True
     return False
+
+def game(request):
+    return render(request, 'chat/game.html', {})
