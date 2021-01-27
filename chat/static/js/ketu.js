@@ -46,7 +46,7 @@ $(document).ready(function () {
 function msg() {
     if(document.getElementById("msg").value.length >= 2){
         user_word();
-        p_time+=10;
+        p_time+=100;
         document.getElementById("msg").readOnly = true;
         $.ajax({
             url: "searchData/",
@@ -66,8 +66,8 @@ function msg() {
 
 // ################################################################# 봇, 유저 단어 추가 부분 #######################################################
 
-function bot_word(msg,color){
-    document.getElementById("msg").value ="";
+function bot_word(msg,color){ // 봇이 입력한 단어를 추가해 주는 부분
+    document.getElementById("msg").value =""; 
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
     var size = msg.length*15+70+"px " +"92px";
@@ -80,7 +80,7 @@ function bot_word(msg,color){
     document.getElementById("P_sco").innerHTML = user_score;
 }
 
-function user_word(){
+function user_word(){   // 플레이어가 입력한 단어를 추가해주는 부분
     user_msg = document.getElementById("msg").value;
     document.getElementById("msg").value ="";
     var word_list = document.getElementById("word_list");
@@ -98,23 +98,23 @@ function last_word(msg){
         msg = msg.replace("1",""); 
         bot_word(msg,"blue");
         document.getElementById("f_msg").innerText = msg.slice(-1)[0];
-        p_time-=10;
+        p_time-=100;
     }else if(msg.slice(-1)[0] == "2"){  //이미 사용한 단어
         msg = msg.replace("2","");
         bot_word(msg,"red");
-        p_time-=10;
+        p_time-=100;
     }else if(msg.slice(-1)[0] == "3"){ //첫 단어 이상
         msg = msg.replace("3","");
         bot_word(msg,"green");
-        p_time-=10;
+        p_time-=100;
     }else if(msg.slice(-1)[0] == "4"){  // 한글자 일때
         msg = msg.replace("4","");
         bot_word(msg,"orange");
-        p_time-=10;
+        p_time-=100;
     }else if(msg.slice(-1)[0] == "5"){  // 단어가 없을때
         msg = msg.replace("5","");
         bot_word(msg,"orange");
-        p_time-=10;
+        p_time-=100;
     }else{  //평상시
         p_time = 100;
         user_score += 10+user_msg.length;
@@ -158,6 +158,7 @@ function gameTime() { // 40짜리
 
 function timeG(){
     g_time-=0.01;
+    //g_time -= 1;
     var a = document.getElementById("timer_bar");
     a.style.width = g_time + "%";
 
@@ -167,12 +168,12 @@ function timeG(){
     p.style.width = p_time + "%";
     if(p_time < 0){
         clearInterval(timerGId);
-        gameEnd("timeover")  // 입력시간 초과
+        gameEnd("-1")  // 입력시간 초과
     } 
 
     if(g_time<0){ 
         clearInterval(timerGId);
-        gameEnd("timeend") // 게임시간 끝
+        gameEnd(1) // 게임시간 끝
     }
 
 }
@@ -180,8 +181,17 @@ function timeG(){
 // ################## 게임 끝 ################# \\
 
 function gameEnd(mode){
-    document.getElementById("final").style.animation="slid 3s forwards";
+    document.getElementById("final").style.animation="slid 2s forwards";
     document.getElementById("msg").readOnly = true;
+    if(mode==1){ // 게임 시간이 끝난 것
+        if(user_score > bot_score ){
+            document.getElementById("final").innerHTML = "승리";
+        }else if(user_score == bot_score){
+            document.getElementById("final").innerHTML = "무승부";
+        }else{
+            document.getElementById("final").innerHTML = "패배";
+        }
+    }else{ // 입력시간을 초과한 것
+        document.getElementById("final").innerHTML = "패배";
+    }
 }
-
-

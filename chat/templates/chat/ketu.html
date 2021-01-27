@@ -35,6 +35,26 @@
                 imagePopup('open');
             }
         }
+
+
+        function gameEnd(mode){
+            document.getElementById("final").style.animation="slid 2s forwards";
+            document.getElementById("msg").readOnly = true;
+            if(mode==1){ // 게임 시간이 끝난 것
+                if(user_score > bot_score ){
+                    document.getElementById("final").innerHTML = "<h1>승리</h1>";
+                    document.getElementById("final").innerHTML = "user : "+user_score;
+                }else if(user_score == bot_score){
+                    document.getElementById("final").innerHTML = "<h1>무승부</h1>";
+                }else{
+                    document.getElementById("final").innerHTML = "<h1>패배</h1>";
+                }
+            }else{ // 입력시간을 초과한 것
+                document.getElementById("final").innerHTML = "<h1>패배</h1>";
+                document.getElementById("final").innerHTML += "user : "+user_score;
+            }
+        }
+
     </script>
 
     <style>
@@ -74,7 +94,7 @@
 </head>
 
 <body>
-
+    <img id="gameend" src="{% static 'img/ketu/gameend.png' %}" >
     <div id="d1">
 
         <div id="info" class="g_info">
@@ -162,7 +182,7 @@
     </div>
     <!--팝업창 끝-->
 
-
+    
 </body>
 
 </html>

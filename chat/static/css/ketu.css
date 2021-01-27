@@ -139,6 +139,12 @@ body{
     
 }
 /*  animation: slid 3s forwards; */
+@keyframes end{
+    to{
+        top: 0px;
+    }
+}
+
 @keyframes slid{
     to{
         top: 0px;
@@ -153,6 +159,36 @@ width: 100%;
     background-color: white;
 */
 
+
+#gameend{
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    height: 100%;
+    top: -50px;
+    animation: gameend 1s forwards;
+    display: none;
+}
+
+
+@keyframes gameend{
+    to{
+        width: 100%;
+        z-index: 100;
+        height: 100%;
+        top: -50px;
+        opacity: 0;
+        animation: gameend 1s;
+    }
+
+    from{
+        width: 100%;
+        z-index: 100;
+        height: 50%;
+        top: -50px;
+        opacity: 1;
+    }
+}
 
   /*##############################################################*/
  /*####                        타이머 부분                     ###*/
