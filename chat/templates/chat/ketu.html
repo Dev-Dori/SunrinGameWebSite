@@ -24,12 +24,12 @@
         var g_time = 100;
         var timerGId;
 
-        
+
         function start() {
-            if(using == 1){
+            if (using == 1) {
                 using = 0;
                 var bg = document.getElementById("GS");
-                bg.src ="{% static 'img/ketu/mainLOGO.png'  %}";
+                bg.src = "{% static 'img/ketu/mainLOGO.png'  %}";
                 bg.removeAttribute("hover");
                 bg.style.height = "193px";
                 imagePopup('open');
@@ -37,28 +37,37 @@
         }
 
 
-        function gameEnd(mode){
-            document.getElementById("final").style.animation="slid 2s forwards";
+        function gameEnd(mode) {
+            document.getElementById("final").style.animation = "slid 2s forwards";
             document.getElementById("msg").readOnly = true;
-            if(mode==1){ // 게임 시간이 끝난 것
-                if(user_score > bot_score ){
+            if (mode == 1) { // 게임 시간이 끝난 것
+                if (user_score > bot_score) {
+                    document.getElementById("P_img").src="{% static 'img/ketu/win_P.png' %}"
                     document.getElementById("final").innerHTML = "<h1>승리</h1>";
-                    document.getElementById("final").innerHTML = "user : "+user_score;
-                }else if(user_score == bot_score){
+                    document.getElementById("final").innerHTML = "score : " + user_score;
+                } else if (user_score == bot_score) {
                     document.getElementById("final").innerHTML = "<h1>무승부</h1>";
-                }else{
+                    document.getElementById("final").innerHTML = "score : " + user_score;
+                    document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a>";
+                } else {
+                    document.getElementById("P_img").src="{% static 'img/ketu/lose_P.png' %}"
                     document.getElementById("final").innerHTML = "<h1>패배</h1>";
+                    document.getElementById("final").innerHTML = "score : " + user_score;
+                    document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a>";
                 }
-            }else{ // 입력시간을 초과한 것
+            } else { // 입력시간을 초과한 것
+                document.getElementById("P_img").src="{% static 'img/ketu/lose_P.png' %}"
                 document.getElementById("final").innerHTML = "<h1>패배</h1>";
-                document.getElementById("final").innerHTML += "user : "+user_score;
+                document.getElementById("final").innerHTML += "score : " + user_score;
+                document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a>";
+
             }
         }
 
     </script>
 
     <style>
-        .u_word{
+        .u_word {
             color: white;
             text-align: left;
             background-position: left;
@@ -67,49 +76,54 @@
             background-size: 371px 92px;
             background-repeat: no-repeat;
             height: 100px;
-            margin-top: -40px;
-            padding: 54px 0px 0px 43px;
+            margin-top: -20px;
+            padding: 45px 0px 0px 25px;
+            font-size: 2em;
+            margin-left: 20px;
         }
 
         .b_word {
             text-align: right;
-            margin: -50px 0px 0px 0px;
+            margin: -30px 0px 0px 0px;
             color: white;
-            padding: 65px 40px 0px 0px;
+            padding: 60px 20px 0px 0px;
             height: 100px;
             background-image: url(/static/img/ketu/bot.png);
             background-size: 371px 92px;
             background-position: right;
             background-position-y: 45px;
             background-repeat: no-repeat;
+            font-size: 2em;
+            margin-right: 20px;
         }
 
-        .word{
+        .word {
             margin-bottom: 10px;
         }
     </style>
 
-    
-   
 </head>
 
 <body>
-    <img id="gameend" src="{% static 'img/ketu/gameend.png' %}" >
+    <img id="gameend" src="{% static 'img/ketu/gameend.png' %}">
     <div id="d1">
 
         <div id="info" class="g_info">
             <!--<div><a href="../"><img id="mainLOGO" src="{% static 'img/ketu/mainLOGO.png'  %}"></a></div>-->
-            <div id="START_LOGO" onclick="start();"><img id="GS" class="GS1" src="{% static 'img/ketu/GS.png' %}" ondragstart="return false"></div>
+            <div id="START_LOGO" onclick="start();"><img id="GS" class="GS1" src="{% static 'img/ketu/GS.png' %}"
+                    ondragstart="return false"></div>
         </div>
 
         <div id="game_box">
             <!-- 플레이어 박스 -->
             <div id="Player_box" class="P_box">
                 <div id="P_score" class="score">
-                    <div>score</div>
-                    <div id="P_sco"><h3>0</h3></div>
+                    <div>변호사</div>
+                    <div id="P_sco">
+                        <span>0</span>
+                    </div>
                 </div>
-                <img src="{% static 'img/ketu/left.png' %}" onclick="Pword('test')" > 
+                <img id="P_img" src="{% static 'img/ketu/left.png' %}" onclick="Pword('test')">
             </div>
             <!-- 플레이어 박스 끝-->
 
@@ -141,13 +155,14 @@
 
                 <!--단어입력-->
                 <div id="input_word" class="g_info">
-                    <input type="text" id="msg" placeholder="여기에 입력하세요." onKeyPress="if( event.keyCode==13 ){msg();}" readonly>
+                    <input type="text" id="msg" placeholder="여기에 입력하세요." onKeyPress="if( event.keyCode==13 ){msg();}"
+                        readonly>
                 </div>
                 <!--단어입력 끝-->
 
                 <div id="final">
                     <h1>최종결과</h1>
-                </div> 
+                </div>
 
             </div>
 
@@ -155,10 +170,12 @@
             <!-- 봇 박스 -->
             <div id="BOT_box" class="P_box">
                 <div id="B_score" class="score">
-                    <div>score</div>
-                    <div id="B_sco"><h3>0</h3></div>
+                    <div>검사봇</div>
+                    <div id="B_sco">
+                        <span>0</span>
+                    </div>
                 </div>
-                <img src="{% static 'img/ketu/right.png' %}" onclick="Pword('test')">
+                <img id="B_img" src="{% static 'img/ketu/right.png' %}" onclick="Pword('test')">
             </div>
             <!-- 봇 박스 끝-->
 
@@ -170,19 +187,30 @@
 
 
     <!--팝업창 시작-->
-    <div id="layer" style="display:none">   
+    <div id="layer" style="display:none">
         <div id="popup">
             <!-- 팝업창 닫기 버튼 -->
             <a id="close" href="javascript:" onClick="imagePopup('close')">
                 닫기
             </a>
-            <br/>
-            <h1>여기는 팝업창이다!@!</h1>
-        <div>
-    </div>
-    <!--팝업창 끝-->
+            <br />
+            <h1>오늘의 사건</h1>
+            <div>
+                사건 : 김아무개씨는 팀 프로젝트 중<br> 코딩을 하다 컴퓨터가 전원이 꺼져버렸다. <br>
+                그러나 피고인은 저장을 누르지 않았고,<br>6시간 동안 프로그래밍이 전부 날라갔다.<br>
+                결국 팀원들의 혈압이 올라 쓰러졌고,<br> 김아무개씨는 범인으로 몰렸다...<br>
+                하지만 김아무개씨는 분명 백업을 했었다.<br>
+                <br>
+                용의자 : 김아무개<br>
+                사건 일시 : 20XX년 XX월 XX일<br>
 
-    
+                <a style="color: red;" href="javascript:" onClick="imagePopup('close')">
+                    억울한 김아무개씨를 변호하자.
+                </a>   
+            </div>
+            <!--팝업창 끝-->
+
+
 </body>
 
 </html>

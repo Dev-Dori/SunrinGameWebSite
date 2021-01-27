@@ -70,7 +70,7 @@ function bot_word(msg,color){ // 봇이 입력한 단어를 추가해 주는 부
     document.getElementById("msg").value =""; 
     var word_list = document.getElementById("word_list");
     var tmp = document.createElement("div");
-    var size = msg.length*15+70+"px " +"92px";
+    var size = msg.length*17+74+"px " +"92px";
     tmp.setAttribute("class", "word b_word");
     //tmp.style.backgroundColor=color;
     tmp.style.backgroundSize = size;
@@ -84,7 +84,7 @@ function user_word(){   // 플레이어가 입력한 단어를 추가해주는 �
     user_msg = document.getElementById("msg").value;
     document.getElementById("msg").value ="";
     var word_list = document.getElementById("word_list");
-    var size = user_msg.length*13+74+"px " +"92px";
+    var size = user_msg.length*17+74+"px " +"92px";
     var tmp = document.createElement("div");
     tmp.setAttribute("class", "word u_word");
     tmp.style.backgroundSize = size;
