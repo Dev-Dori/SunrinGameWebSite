@@ -63,23 +63,26 @@ def searchData(request):
     
     print(data[-1])
     if wordCheck(data): #중복체크 사용된 단어 #단어 존재 여부 #끝말과 이어지는지
-        if lastword[-1] == data[0]:
-            if data not in usingword:
-                usingword.append(data)
-                res = get_words(data[-1])
-                res = res[random.randrange(0,len(res))]
-                if res not in usingword:
-                    usingword.append(res)
-                    lastword = res[-1]
-                    context = {'msg': res,}
-                else :
-                    context = {'msg': "당신의 승리입니다1",}
+        if len(data) >= 2:
+            if lastword[-1] == data[0]:
+                if data not in usingword:
+                    usingword.append(data)
+                    res = get_words(data[-1])
+                    res = res[random.randrange(0,len(res))]
+                    if res not in usingword:
+                        usingword.append(res)
+                        lastword = res[-1]
+                        context = {'msg': res,}
+                    else :
+                        context = {'msg': "당신의 승리입니다1",}
+                else:
+                    context = {'msg': "훗 그 단어는 이미 사용했다!2",}
             else:
-                context = {'msg': "훗 그 단어는 이미 사용했다!2",}
+                context = {'msg': "첫 단어가 틀립니다3",}
         else:
-            context = {'msg': "첫 단어가 틀립니다3",}
+            context = {'msg': "두글자 이상으로 적어!4",}
     else :
-        context = {'msg': "그딴 단어는 세상에 없다구! 다시!4",}
+        context = {'msg': "그딴 단어는 세상에 없다구! 다시!5",}
     
     return HttpResponse(json.dumps(context), "application/json")
 

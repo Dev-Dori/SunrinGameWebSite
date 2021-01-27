@@ -19,63 +19,17 @@
         var using = 1;
         var p_time = 0;
         var g_time = 0;
-        var timerGId
-        var timerPId
+        var timerGId;
 
-        function userTime() { //  유저 타이머
-            var a = document.getElementById("userTime_bar");
-            a.style.width = 0 + "%";
-            timerPId = setInterval("timeP()", 0.01); // 1000 = 1초 //  10 =0.01 // 
-        }
-
-        function timeP(){
-            p_time+=0.08;
-            var a = document.getElementById("userTime_bar");
-            a.style.width = p_time + "%";
-            if(p_time>100){ 
-                clearInterval(timerPId);
-            }
-        }
-
-
-        function gameTime() { // 40짜리
-            var a = document.getElementById("timer_bar");
-            a.style.width = 0 + "%";
-            timerGId = setInterval("timeG()", 0.01); // 1000 = 1초 //  10 =0.01 // 
-        }
-
-        function timeG(){
-            g_time+=0.01;
-            var a = document.getElementById("timer_bar");
-            a.style.width = g_time + "%";
-            if(g_time==100){ 
-                clearInterval(timerGId);
-            }
-        }
-
-
+        
         function start() {
             if(using == 1){
                 using = 0;
                 var bg = document.getElementById("GS");
                 bg.src ="{% static 'img/ketu/mainLOGO.png'  %}";
+                bg.removeAttribute("hover");
                 bg.style.height = "193px";
                 imagePopup('open');
-            }
-        }
-
-        function imagePopup(type) {
-            if(type == 'open') {
-                // 팝업창을 연다.
-                jQuery('#layer').attr('style','display:inline');
-                // 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-                jQuery('#layer').height(jQuery(document).height());
-            }
-            else if(type == 'close') {
-                // 팝업창을 닫는다.
-                jQuery('#layer').attr('style','display:none');
-                gameTime();
-                userTime();
             }
         }
     </script>
@@ -122,13 +76,13 @@
 
         <div id="info" class="g_info">
             <!--<div><a href="../"><img id="mainLOGO" src="{% static 'img/ketu/mainLOGO.png'  %}"></a></div>-->
-            <div id="START_LOGO" onclick="start();"><img id="GS" src="{% static 'img/ketu/GS.png' %}"></div>
+            <div id="START_LOGO" onclick="start();"><img id="GS" class="GS1" src="{% static 'img/ketu/GS.png' %}" ondragstart="return false"></div>
         </div>
 
         <div id="game_box">
             <!-- 플레이어 박스 -->
             <div id="Player_box" class="P_box">
-                <img src="{% static 'img/ketu/left.png' %}" onclick="Pword('test')">
+                <img src="{% static 'img/ketu/left.png' %}" onclick="Pword('test')" > 
             </div>
             <!-- 플레이어 박스 끝-->
 
@@ -160,7 +114,7 @@
 
                 <!--단어입력-->
                 <div id="input_word" class="g_info">
-                    <input type="text" id="msg" placeholder="여기에 입력하세요." onKeyPress="if( event.keyCode==13 ){msg();}">
+                    <input type="text" id="msg" placeholder="여기에 입력하세요." onKeyPress="if( event.keyCode==13 ){msg();}" readonly>
                 </div>
                 <!--단어입력 끝-->
 

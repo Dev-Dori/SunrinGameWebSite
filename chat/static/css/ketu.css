@@ -29,10 +29,7 @@ body{
     margin-top: -5px;
 }
 
-#GS:hover{
-    transition: 1s;
-    width: 365px;
-}
+
 
 #word_list{
     margin-top: 15px;
@@ -136,7 +133,7 @@ body{
 }
 
 #timer_bar{
-    width: 10%;
+    width: 0%;
     height: 60%;
     background-color: orange;
 }

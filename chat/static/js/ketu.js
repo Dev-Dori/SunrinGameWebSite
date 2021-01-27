@@ -97,10 +97,14 @@ function last_word(msg){
     }else if(msg.slice(-1)[0] == "3"){ //첫 단어 이상
         msg = msg.replace("3","");
         bot_word(msg,"green");
-    }else if(msg.slice(-1)[0] == "4"){  // 단어가 없을때
+    }else if(msg.slice(-1)[0] == "4"){  // 한글자 일때
         msg = msg.replace("4","");
         bot_word(msg,"orange");
+    }else if(msg.slice(-1)[0] == "5"){  // 단어가 없을때
+        msg = msg.replace("5","");
+        bot_word(msg,"orange");
     }else{  //평상시
+        p_time = 0;
         bot_word(msg,"grey");
         document.getElementById("f_msg").innerText = msg.slice(-1)[0];
     }
@@ -113,19 +117,53 @@ function last_word(msg){
 // ################## 팝업창 ################# \\
 
 function imagePopup(type) {
-
     if(type == 'open') {
-       
         // 팝업창을 연다.
         jQuery('#layer').attr('style','display:inline');
-
         // 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
         jQuery('#layer').height(jQuery(document).height());
     }
-   
     else if(type == 'close') {
-       
         // 팝업창을 닫는다.
         jQuery('#layer').attr('style','display:none');
+        gameTime();
+        document.getElementById("msg").readOnly = false;
+        document.getElementById("msg").autofocus = true;
     }
 }
+
+
+// ################## 타이머 ################# \\
+
+
+
+
+function gameTime() { // 40짜리
+    timerGId = setInterval("timeG()", 0.01); // 1000 = 1초 //  10 =0.01 // 
+}
+
+function timeG(){
+    g_time+=0.01;
+    var a = document.getElementById("timer_bar");
+    a.style.width = g_time + "%";
+
+
+    p_time+=0.08;
+    var p = document.getElementById("userTime_bar");
+    p.style.width = p_time + "%";
+    if(p_time > 100){
+        alert("gameover");
+        document.getElementById("msg").readOnly = true;
+        clearInterval(timerGId);
+    } 
+
+    if(g_time>100){ 
+        document.getElementById("msg").readOnly = true;
+        clearInterval(timerGId);
+    }
+
+}
+
+// ################## 스타트 ################# \\
+
+
