@@ -6,6 +6,232 @@
     <meta charset="UTF-8">
     <title>스케치퀴즈</title>
     <link rel="stylesheet" href="{% static 'css/sketch.css' %}?after">
+    <style>
+        body {
+            background-color: lightskyblue;
+            height: 1024px;
+            width: 2048px;
+            
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        #G_logo {
+            margin-left: 300px;
+
+        }
+
+        #header {
+            margin: 0, auto;
+            width: 84%;
+        }
+
+        #chatting {
+            width: 320px;
+            height: 40em;
+        }
+
+        .mainbox {
+            margin: 0 auto;
+            display: flex;
+            height: 640px;
+            width: 1500px;
+            align-items: center;
+        }
+
+
+
+        #sketch_board {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 55em;
+            border: 7px solid black;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            height: 46px;
+            border-top: 7px solid black;
+            margin-top: -6px;
+        }
+
+        #sketch_control {
+            border: 2px solid black;
+        }
+
+
+        .user_box {
+            width: 240px;
+            height: 650px;
+            margin-right: 30px;
+        }
+
+
+        .player {
+            overflow: hidden;
+            margin: 17px 0 -3px 4px;
+            border: 2px solid black;
+            height: 22%;
+            width: 100%;
+        }
+
+        .pimg {
+            width: 100%;
+            height: 150px;
+        }
+       
+
+        #wrap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin-left: 70px;
+            border: 7px solid rgb(0, 0, 0);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #chatWrap {
+            height: 639px;
+            margin: auto;
+            
+            background-color: white;
+        }
+
+        #chatView {
+            width: 100%;
+            height: 92%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        .system {
+            width: 100%;
+            text-align: center;
+            font-size: large;
+            color: darkgray;
+        }
+
+        .chatLine {
+            height: auto;
+            padding: 10px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .nick {
+            display: block;
+            margin-left: 1%;
+            font-size: large;
+            font-weight: bold;
+            color: gray;
+        }
+
+        .chatLog {
+            max-width: 60%;
+            height: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            display: inline-block;
+            word-break: break-all;
+            font-size: large;
+            background-color: lightgray;
+        }
+
+        .me {
+            float: right;
+            background-color: lightblue;
+        }
+
+        #sendForm {
+            height: 6%;
+            padding-top: 5px;
+            padding-bottom: 3px;
+            border-top: 7px solid black;
+
+            text-align: center;
+        }
+
+        #name {
+            width: 20%;
+            height: 50px;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        #message {
+            width: 90%;
+            height: 30px;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        #canvas {
+            position: static;
+            background-color: rgb(7, 92, 7);
+        }
+
+        #word_info {
+            -ms-user-select: none;
+            -moz-user-select: -moz-none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            user-select: none;
+            border-radius: 15px;
+            margin: 10px 0px 0px 10px;
+            background-color: mediumspringgreen;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 150px;
+            height: 25px;
+            border: 1px solid white;
+            padding: 3px 0px 0px 0px;
+            text-align: center;
+        }
+
+        .color {
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            border: none;
+        }
+
+        .tool {
+            width: 40px;
+            height: 40px;
+        }
+        #homebut{
+            background-color: coral;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100px;
+            height: 30px;
+        }
+        #homebut2{
+            background-color:khaki;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100px;
+            height: 30px;
+        }
+    </style>
     <script>
         function over_img(obj) {
             var shadow = obj.children[1];
@@ -39,7 +265,7 @@
 
         function drawUserEnterAlert(name) {
             var player = document.getElementById("P1");
-            //player.innerHTML = name; //*
+           // player.innerHTML = name; //*
             const html = `
                 <div class="system">
                     ${name}님이 들어왔습니다.
@@ -157,8 +383,8 @@
                 <img src="https://cdn.discordapp.com/attachments/795965957259788319/803315397562335282/54e0c7c7ae840c15.png">
             </div>
             <div>
-                <button id="homebut"  onclick="location.href='http://127.0.0.1:8000/game' ">홈</button>
-                <button id="homebut2" onclick="location.href='http://127.0.0.1:8000' ">나가기</button>
+                <button id="homebut" onclick="location.href='http://127.0.0.1:8000/game'">홈</button>
+                <button id="homebut2" onclick="location.href='http://127.0.0.1:8000/' ">나가기</button>
             </div>
         </div>
     </header>
@@ -189,14 +415,15 @@
                     <canvas id="canvas" width="880px" height="592px" onmousemove='where(event)'></canvas>
                     <div class="options">
                         <div id="type">
-                            <button value="stroke">실선</button>
-                            <button value="eraser">지우개</button>
+                            <button value="stroke">그리기</button>
+                            <button value="eraser">지우기</button>
                         </div>
                         <div id="strokeStyle">
                             <button value="blue" style="background-color: blue;" class="color"></button>
                             <button value="red" style="background-color: red;" class="color"></button>
-                            <button value="pink" style="background-color: pink;" class="color"></button>
+                            <button value="black" style="background-color: black;" class="color"></button>
                             <button value="orange" style="background-color: orange;" class="color"></button>
+                            <input type="color" class="color">
                         </div>
                         <select id="lineWidth">
                             <option value="30">30px</option>
