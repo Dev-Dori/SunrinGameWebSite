@@ -44,16 +44,21 @@ $(document).ready(function () {
 
 // ################################################################# 단어입력 서버와의 ajax 통신 ##################################################
 function msg() {
-    $.ajax({
-        url: "searchData/",
-        dataType: 'json',
-        type: 'POST',
-        data: { 'msg': $('#msg').val() },
-        success: function (result) {
-            user_word();
-            last_word(result['msg']);
-        }
-    });
+    if(document.getElementById("msg").value.length >= 2){
+        user_word();
+        p_time+=10;
+        document.getElementById("msg").readOnly = true;
+        $.ajax({
+            url: "searchData/",
+            dataType: 'json',
+            type: 'POST',
+            data: { 'msg': user_msg }, //$('#msg').val()
+            success: function (result) {
+                last_word(result['msg']);
+                document.getElementById("msg").readOnly = false;
+            }
+        });
+    }
 }
 
 // ################################################################# ajax django 처리 부분 끝######################################################
@@ -71,11 +76,13 @@ function bot_word(msg,color){
     tmp.style.backgroundSize = size;
     tmp.innerHTML = msg;
     word_list.prepend(tmp);
-
+    document.getElementById("B_sco").innerHTML = bot_score;
+    document.getElementById("P_sco").innerHTML = user_score;
 }
 
 function user_word(){
-    var user_msg = document.getElementById("msg").value;
+    user_msg = document.getElementById("msg").value;
+    document.getElementById("msg").value ="";
     var word_list = document.getElementById("word_list");
     var size = user_msg.length*13+74+"px " +"92px";
     var tmp = document.createElement("div");
@@ -91,20 +98,27 @@ function last_word(msg){
         msg = msg.replace("1",""); 
         bot_word(msg,"blue");
         document.getElementById("f_msg").innerText = msg.slice(-1)[0];
+        p_time-=10;
     }else if(msg.slice(-1)[0] == "2"){  //이미 사용한 단어
         msg = msg.replace("2","");
         bot_word(msg,"red");
+        p_time-=10;
     }else if(msg.slice(-1)[0] == "3"){ //첫 단어 이상
         msg = msg.replace("3","");
         bot_word(msg,"green");
+        p_time-=10;
     }else if(msg.slice(-1)[0] == "4"){  // 한글자 일때
         msg = msg.replace("4","");
         bot_word(msg,"orange");
+        p_time-=10;
     }else if(msg.slice(-1)[0] == "5"){  // 단어가 없을때
         msg = msg.replace("5","");
         bot_word(msg,"orange");
+        p_time-=10;
     }else{  //평상시
-        p_time = 0;
+        p_time = 100;
+        user_score += 10+user_msg.length;
+        bot_score += 10+msg.length;
         bot_word(msg,"grey");
         document.getElementById("f_msg").innerText = msg.slice(-1)[0];
     }
@@ -143,27 +157,31 @@ function gameTime() { // 40짜리
 }
 
 function timeG(){
-    g_time+=0.01;
+    g_time-=0.01;
     var a = document.getElementById("timer_bar");
     a.style.width = g_time + "%";
 
 
-    p_time+=0.08;
+    p_time-=0.08;
     var p = document.getElementById("userTime_bar");
     p.style.width = p_time + "%";
-    if(p_time > 100){
-        alert("gameover");
-        document.getElementById("msg").readOnly = true;
+    if(p_time < 0){
         clearInterval(timerGId);
+        gameEnd("timeover")  // 입력시간 초과
     } 
 
-    if(g_time>100){ 
-        document.getElementById("msg").readOnly = true;
+    if(g_time<0){ 
         clearInterval(timerGId);
+        gameEnd("timeend") // 게임시간 끝
     }
 
 }
 
-// ################## 스타트 ################# \\
+// ################## 게임 끝 ################# \\
+
+function gameEnd(mode){
+    document.getElementById("final").style.animation="slid 3s forwards";
+    document.getElementById("msg").readOnly = true;
+}
 
 

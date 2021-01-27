@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>스케치퀴즈</title>
     <link rel="stylesheet" href="{% static 'css/sketch.css' %}?after">
-
     <script>
         function over_img(obj) {
             var shadow = obj.children[1];
@@ -40,7 +39,7 @@
 
         function drawUserEnterAlert(name) {
             var player = document.getElementById("P1");
-            player.innerHTML = name;
+            player.innerHTML = name; //*
             const html = `
                 <div class="system">
                     ${name}님이 들어왔습니다.
@@ -155,11 +154,11 @@
     <header>
         <div id="header">
             <div id="G_logo">
-                <img src="">
+                <img src="https://cdn.discordapp.com/attachments/795965957259788319/803315397562335282/54e0c7c7ae840c15.png">
             </div>
             <div>
-                <button>홈</button>
-                <button>나가기</button>
+                <button id="homebut">홈</button>
+                <button id="homebut2">나가기</button>
             </div>
         </div>
     </header>
@@ -168,19 +167,26 @@
     <div class="mainbox">
         <nav>
             <div class="user_box">
-                <div class="player" id="P1"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
-                <div class="player" id="P2"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
-                <div class="player" id="P3"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
-                <div class="player" id="P4"><img src="https://new-version.download/wp-content/uploads/Discord.png" class="pimg"></div>
+                <span class="player1"></span>
+                <div class="player" id="P1"><img src="https://cdn.discordapp.com/attachments/795965957259788319/803319703777968248/unknown.png"
+                        class="pimg"></div>
+                <span class="player2"></span>        
+                <div class="player" id="P2"><img src="https://cdn.discordapp.com/attachments/795965957259788319/803319735428972585/unknown.png"
+                        class="pimg"></div>
+                <span class="player3"></span>
+                <div class="player" id="P3"><img src="https://media.discordapp.net/attachments/795965957259788319/803319762985287700/unknown.png"
+                        class="pimg"></div>
+                <span class="player4"></span>
+                <div class="player" id="P4"><img src="https://media.discordapp.net/attachments/795965957259788319/803319784644542506/unknown.png"
+                        class="pimg"></div>
             </div>
-            
+
         </nav>
-        
         <article>
             <div id="sketch_board">
                 <div id="word_info">제시어</div>
                 <div id="cumo">
-                    <canvas id="canvas" width= "880px" height= "592px" onmousemove='where(event)'></canvas>
+                    <canvas id="canvas" width="880px" height="592px" onmousemove='where(event)'></canvas>
                     <div class="options">
                         <div id="type">
                             <button value="stroke">실선</button>
@@ -219,9 +225,6 @@
         </aside>
     </div>
 
-    <footer>
-        <div id="foot">선린인터넷고등학교@gmail.com</div>
-    </footer>
 
 
 
@@ -263,14 +266,14 @@
             drawTools.execute(rects);
             console.log(rects);
         })
-        function alldel(){
+        function alldel() {
 
             var cnvs = document.getElementById('canvas');
             var ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, cnvs.width, cnvs.height);
         }
         const drawTools = {
-            
+
             clear() {
                 // 캔버스 내용 제거
                 const canvas = document.getElementById('canvas');

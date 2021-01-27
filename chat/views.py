@@ -7,7 +7,7 @@ import os
 import json
 import requests
 import random
-
+import time
 
 
 
@@ -60,7 +60,6 @@ def searchData(request):
     context = {'msg': data,}
 
     global lastword
-    
     print(data[-1])
     if wordCheck(data): #중복체크 사용된 단어 #단어 존재 여부 #끝말과 이어지는지
         if len(data) >= 2:
@@ -73,6 +72,7 @@ def searchData(request):
                         usingword.append(res)
                         lastword = res[-1]
                         context = {'msg': res,}
+                        time.sleep(0.5)
                     else :
                         context = {'msg': "당신의 승리입니다1",}
                 else:
