@@ -38,28 +38,38 @@
 
 
         function gameEnd(mode) {
-            document.getElementById("final").style.animation = "slid 2s forwards";
             document.getElementById("msg").readOnly = true;
+            document.getElementById("gameend").style.display="block";
+            setTimeout(function() {
+                document.getElementById("gameend").style.display="none";
+                document.getElementById("final").style.animation = "slid 2s forwards";
+            }, 3000);
+            
             if (mode == 1) { // 게임 시간이 끝난 것
                 if (user_score > bot_score) {
                     document.getElementById("P_img").src="{% static 'img/ketu/win_P.png' %}"
+                    document.getElementById("final").style.backgroundColor = "#5e5eb7";
                     document.getElementById("final").innerHTML = "<h1>승리</h1>";
-                    document.getElementById("final").innerHTML = "score : " + user_score;
+                    document.getElementById("final").innerHTML += "score : " + user_score;
+                    document.getElementById("final").innerHTML += "<a href='http://127.0.0.1:8000/' id='re'>홈으로</a>";
                 } else if (user_score == bot_score) {
                     document.getElementById("final").innerHTML = "<h1>무승부</h1>";
-                    document.getElementById("final").innerHTML = "score : " + user_score;
-                    document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a>";
+                    document.getElementById("final").style.backgroundColor = "gray";
+                    document.getElementById("final").innerHTML += "score : " + user_score;
+                    document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a><a href='http://127.0.0.1:8000/' id='re'>홈으로</a>";
                 } else {
                     document.getElementById("P_img").src="{% static 'img/ketu/lose_P.png' %}"
                     document.getElementById("final").innerHTML = "<h1>패배</h1>";
-                    document.getElementById("final").innerHTML = "score : " + user_score;
-                    document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a>";
+                    document.getElementById("final").style.backgroundColor = "brown";
+                    document.getElementById("final").innerHTML += "score : " + user_score;
+                    document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a><a href='http://127.0.0.1:8000/' id='re'>홈으로</a>";
                 }
             } else { // 입력시간을 초과한 것
                 document.getElementById("P_img").src="{% static 'img/ketu/lose_P.png' %}"
+                document.getElementById("final").style.backgroundColor = "brown";
                 document.getElementById("final").innerHTML = "<h1>패배</h1>";
                 document.getElementById("final").innerHTML += "score : " + user_score;
-                document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a>";
+                document.getElementById("final").innerHTML += "<br><a href='http://127.0.0.1:8000/ketu' id='re'>다시하기</a> <a href='http://127.0.0.1:8000/' id='re'>홈으로</a>";
 
             }
         }

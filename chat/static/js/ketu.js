@@ -180,18 +180,3 @@ function timeG(){
 
 // ################## 게임 끝 ################# \\
 
-function gameEnd(mode){
-    document.getElementById("final").style.animation="slid 2s forwards";
-    document.getElementById("msg").readOnly = true;
-    if(mode==1){ // 게임 시간이 끝난 것
-        if(user_score > bot_score ){
-            document.getElementById("final").innerHTML = "승리";
-        }else if(user_score == bot_score){
-            document.getElementById("final").innerHTML = "무승부";
-        }else{
-            document.getElementById("final").innerHTML = "패배";
-        }
-    }else{ // 입력시간을 초과한 것
-        document.getElementById("final").innerHTML = "패배";
-    }
-}

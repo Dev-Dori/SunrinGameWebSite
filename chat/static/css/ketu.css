@@ -176,24 +176,7 @@ width: 100%;
 }
 
 
-@keyframes gameend{
-    to{
-        width: 100%;
-        z-index: 100;
-        height: 100%;
-        top: -50px;
-        opacity: 0;
-        animation: gameend 1s;
-    }
 
-    from{
-        width: 100%;
-        z-index: 100;
-        height: 50%;
-        top: -50px;
-        opacity: 1;
-    }
-}
 
   /*##############################################################*/
  /*####                        타이머 부분                     ###*/
@@ -241,7 +224,7 @@ width: 100%;
 }
 
 #popup {
-    background-image: url('https://w7.pngwing.com/pngs/883/807/png-transparent-blue-lined-white-paper-desktop-notebook-notepad-mobile-phones-page-miscellaneous-angle-text.png');
+    background-image: url('/static/img/ketu/sta.png');
     background-size: 570px 700px;
     font-size: 20px;
     z-index:3;
@@ -261,7 +244,6 @@ width: 100%;
     float:right;
 }
 #final{
-    background-color: brown;
     font-size: 2em;
     text-align: center;
 }

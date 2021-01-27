@@ -39,7 +39,7 @@
 
         function drawUserEnterAlert(name) {
             var player = document.getElementById("P1");
-            player.innerHTML = name; //*
+            //player.innerHTML = name; //*
             const html = `
                 <div class="system">
                     ${name}님이 들어왔습니다.
@@ -157,8 +157,8 @@
                 <img src="https://cdn.discordapp.com/attachments/795965957259788319/803315397562335282/54e0c7c7ae840c15.png">
             </div>
             <div>
-                <button id="homebut">홈</button>
-                <button id="homebut2">나가기</button>
+                <button id="homebut"  onclick="location.href='http://127.0.0.1:8000/game' ">홈</button>
+                <button id="homebut2" onclick="location.href='http://127.0.0.1:8000' ">나가기</button>
             </div>
         </div>
     </header>
